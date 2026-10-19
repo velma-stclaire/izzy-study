@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>SOC 1000 · Ch 6 Practice</title>
+<style>
+:root{--bg:#f6f4ef;--card:#fff;--ink:#1d1d1f;--mute:#6b6b70;--acc:#3b5bdb;--ok:#2b8a3e;--okbg:#ebfbee;--bad:#c92a2a;--badbg:#fff5f5;--line:#e6e2d8}
+@media (prefers-color-scheme:dark){:root{--bg:#141416;--card:#1f1f23;--ink:#f1f1f3;--mute:#a0a0a8;--acc:#7c94ff;--ok:#69db7c;--okbg:#14301b;--bad:#ff8787;--badbg:#3a1717;--line:#2e2e34}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+main{max-width:560px;margin:0 auto;padding:max(16px,env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom))}
+h1{font-size:24px;margin:8px 0 4px}
+.sub{color:var(--mute);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:14px}
+.btn{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0;cursor:pointer;min-height:52px}
+.btn:active{transform:scale(.99)}
+.btn.primary{background:var(--acc);border-color:var(--acc);color:#fff;text-align:center;font-weight:600}
+.btn.ghost{text-align:center}
+.btn.ok{border-color:var(--ok);background:var(--okbg)}
+.btn.bad{border-color:var(--bad);background:var(--badbg)}
+.btn[disabled]{cursor:default}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:4px 0 16px}
+.bar i{display:block;height:100%;background:var(--acc);transition:width .25s}
+.meta{display:flex;justify-content:space-between;color:var(--mute);font-size:14px}
+.q{font-size:19px;font-weight:600;margin:6px 0 4px}
+.tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--acc)}
+.why{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--bg);font-size:15px}
+.big{font-size:48px;font-weight:700;text-align:center;margin:8px 0}
+.flip{min-height:200px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:20px;cursor:pointer}
+.small{font-size:14px;color:var(--mute);text-align:center}
+</style>
+</head>
+<body><main id="app"></main>
+<script>
+const MC=[
+["Being someone's son or daughter is an example of a(n):",["achieved status","ascribed status","master status","role set"],1,"Ascribed = born with it or given to you, not earned."],
+["Earning a nursing degree and becoming a nurse is an example of a(n):",["ascribed status","role strain","achieved status","status set"],2,"Achieved = earned or chosen through your own effort."],
+["Which phrase best captures status vs. role?",["We play a status but occupy a role","We occupy a status but play a role","Status is expected behavior; role is a position","They mean the same thing"],1,"You OCCUPY a status (a position) and PLAY a role (the behavior)."],
+["A single mom's boss asks her to work late on the night of her kid's school play. This is:",["role strain","role distance","role conflict","role embracement"],2,"Two different statuses (employee + parent) pulling against each other = role CONflict."],
+["A coach wants to be close with players but must also cut some from the team. This is:",["role conflict","role strain","master status","back stage behavior"],1,"One status (coach) with tension inside it = role strain."],
+["Who developed dramaturgical analysis?",["Arlie Hochschild","Karl Marx","Erving Goffman","Max Weber"],2,"Erving Goffman — life as a theatrical performance."],
+["Dramaturgical analysis comes from which theoretical approach?",["Structural-functional","Social-conflict","Symbolic interaction","Rational choice"],2,"Goffman was a symbolic interactionist."],
+["Presentation of self is also known as:",["impression management","role distance","emotional labor","status set"],0,"Presentation of self = impression management (pp. 152–53)."],
+["The two components of front stage behavior are:",["setting and personal front","appearance and deference","back stage and front stage","roles and statuses"],0,"1. Setting  2. Personal front."],
+["A doctor's office, white coat and stethoscope are all part of the:",["personal front","setting","back stage","role set"],1,"Setting = physical location + props."],
+["The personal front is made up of:",["setting and props","deference and demeanor","appearance and manner","surface and deep acting"],2,"Personal front = appearance (how you look) + manner (how you act)."],
+["A server smiles at tables, then jokes about rude customers in the kitchen. The kitchen is:",["front stage","back stage","role embracement","a master status"],1,"Back stage = behind the scenes, where the act drops."],
+["Playing a role while showing you don't fully take it seriously ('cynicism') is:",["role embracement","role strain","role distance","deference"],2,"Role distance = cynicism. Role embracement = sincerity."],
+["Genuinely believing in the role you play ('sincerity') is:",["role embracement","role distance","role set","demeanor"],0,"Role embracement = sincerity."],
+["A guest pretends not to notice when the host spills wine. This is a(n):",["defensive practice","protective practice","role conflict","achieved status"],1,"The AUDIENCE protects the actor = protective practice (studied non-observance)."],
+["Before a speech a student says, 'I've never done this before.' This is:",["preventative disclosure (defensive practice)","studied non-observance","deference","role set"],0,"The ACTOR protects themself = defensive practice."],
+["A cancer diagnosis that becomes the main way others see a person is a:",["role strain","master status","achieved status","role set"],1,"Master status = special importance for social identity."],
+["Calling your professor 'Dr.' to show respect is an example of:",["demeanor","deference","role distance","tact"],1,"Deference = showing respect to someone else. Demeanor = how you carry yourself."],
+["All the statuses a person holds at one time is their:",["role set","status set","master status","personal front"],1,"Status set = ALL statuses. Role set = roles attached to ONE status."],
+["A number of roles attached to a single status is a:",["status set","role set","role conflict","setting"],1,"Role set — e.g. 'student' has roles toward professors, classmates, roommates."],
+["Goffman's idea of 'multiple selves' means:",["People have one true self that never changes","People perform different selves in different situations","Only actors have multiple selves","Selves are set by biology"],1,"We perform different selves across settings."],
+["The study of social interaction in terms of theatrical performance is:",["dramaturgical analysis","presentation of self","status set","emotional labor"],0,"Definition from p. 152."],
+["(Lower priority) A flight attendant forces a smile while feeling annoyed. This is:",["deep acting","surface acting","role embracement","a feeling rule"],1,"Surface acting = faking the display without changing the feeling."],
+["(Lower priority) Social norms about how we should feel in a situation are:",["feeling rules","interaction rituals","role sets","status sets"],0,"Arlie Hochschild's feeling rules."]
+];
+const CARDS=[
+["Status","A social position that a person holds (p. 147)"],
+["Ascribed status","Born with it or given involuntarily (daughter, age)"],
+["Achieved status","Earned or chosen (nurse, team captain)"],
+["Status set","ALL the statuses a person holds at a given time"],
+["Master status","A status with special importance for social identity"],
+["Role","Behavior expected of someone who holds a particular status"],
+["Role set","A number of roles attached to a SINGLE status"],
+["Role conflict","Conflict among roles of TWO OR MORE statuses"],
+["Role strain","Tension among roles of ONE status"],
+["Dramaturgical analysis","Studying social interaction as theatrical performance — Erving Goffman"],
+["Presentation of self","Efforts to create specific impressions in others' minds (impression management)"],
+["Front stage","The performance: 1) Setting  2) Personal front (appearance + manner)"],
+["Back stage","Preparing the performance; behind-the-scenes activity"],
+["Role embracement vs. distance","Embracement = sincerity · Distance = cynicism"],
+["Deference vs. demeanor","Deference = respect shown to others · Demeanor = how you carry yourself"],
+["Defensive practice","Actor saves own face (preventative disclosure)"],
+["Protective practice","Audience saves the actor's face (tact, studied non-observance)"],
+["Feeling rules (lower priority)","Norms about how to feel/express emotions — Hochschild"],
+["Surface vs. deep acting","Surface = fake the display · Deep = change the feeling itself"]
+];
+const $=document.getElementById('app');
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const best=()=>+localStorage.getItem('soc6best')||0;
+let S;
+function home(){
+  $.innerHTML=`<h1>Chapter 6: Social Interaction</h1><p class="sub">SOC 1000 · Exam Two practice${best()?` · best score ${best()}%`:''}</p>
+  <button class="btn primary" onclick="start(MC)">Start practice quiz (${MC.length} questions)</button>
+  <button class="btn ghost" onclick="cards()">Flashcards</button>
+  <p class="small">Good luck Wednesday, Izzy!</p>`;
+}
+function start(pool){S={qs:shuf(pool).map(q=>{const o=shuf(q[1].map((t,i)=>({t,ok:i===q[2]})));return{q:q[0],o,why:q[3],src:q}}),i:0,right:0,miss:[]};show()}
+function show(){
+  const q=S.qs[S.i],n=S.qs.length;
+  $.innerHTML=`<div class="meta"><span>Question ${S.i+1} of ${n}</span><span>${S.right} correct</span></div>
+  <div class="bar"><i style="width:${S.i/n*100}%"></i></div>
+  <div class="card"><div class="q">${q.q}</div></div>
+  <div id="opts">${q.o.map((o,k)=>`<button class="btn" onclick="pick(${k})">${o.t}</button>`).join('')}</div><div id="after"></div>`;
+  scrollTo(0,0);
+}
+function pick(k){
+  const q=S.qs[S.i],bs=document.querySelectorAll('#opts .btn');
+  bs.forEach((b,j)=>{b.disabled=true;if(q.o[j].ok)b.classList.add('ok')});
+  if(q.o[k].ok)S.right++;else{bs[k].classList.add('bad');S.miss.push(q.src)}
+  document.getElementById('after').innerHTML=`<div class="why">${q.o[k].ok?'✅ Correct!':'❌ Not quite.'} ${q.why}</div>
+  <button class="btn primary" onclick="next()">${S.i+1<S.qs.length?'Next':'See results'}</button>`;
+}
+function next(){S.i++;S.i<S.qs.length?show():done()}
+function done(){
+  const pct=Math.round(S.right/S.qs.length*100);
+  if(S.qs.length===MC.length&&pct>best())localStorage.setItem('soc6best',pct);
+  const missed=S.miss;
+  $.innerHTML=`<div class="card"><div class="big">${pct}%</div><p class="small">${S.right} of ${S.qs.length} correct${pct>=90?' — you\'re ready! 🎉':pct>=75?' — nearly there 💪':' — keep going, you\'ve got this'}</p></div>
+  ${missed.length?`<button class="btn primary" onclick="start(window._m)">Retry the ${missed.length} I missed</button>`:''}
+  <button class="btn ghost" onclick="start(MC)">Take the full quiz again</button>
+  <button class="btn ghost" onclick="cards()">Flashcards</button>
+  <button class="btn ghost" onclick="home()">Home</button>`;
+  window._m=missed;
+}
+function cards(){S={c:shuf(CARDS),i:0,f:false};card()}
+function card(){
+  const c=S.c[S.i];
+  $.innerHTML=`<div class="meta"><span>Card ${S.i+1} of ${S.c.length}</span><span>tap card to flip</span></div>
+  <div class="bar"><i style="width:${(S.i+1)/S.c.length*100}%"></i></div>
+  <div class="card flip" onclick="S.f=!S.f;card()">${S.f?c[1]:'<b>'+c[0]+'</b>'}</div>
+  <button class="btn primary" onclick="S.i=(S.i+1)%S.c.length;S.f=false;card()">Next card</button>
+  <button class="btn ghost" onclick="home()">Home</button>`;
+}
+home();
+</script>
+</body></html>
